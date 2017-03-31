@@ -1,0 +1,9 @@
+net\idealclover\java\fw\support\svnkit\SVNManager.class
+net\idealclover\java\fw\support\svnkit\exception\SVNKitSupportException.class
+net\idealclover\java\fw\support\svnkit\model\Access.class
+net\idealclover\java\fw\support\svnkit\AbstractSVNManager.class
+net\idealclover\java\fw\support\svnkit\exception\SVNKitSupportRuntimeException.class
+net\idealclover\java\fw\support\svnkit\IWorkingCopyManager.class
+net\idealclover\java\fw\support\svnkit\model\Account.class
+net\idealclover\java\fw\support\svnkit\IRepositoryManager.class
+net\idealclover\java\fw\support\svnkit\Example.class
