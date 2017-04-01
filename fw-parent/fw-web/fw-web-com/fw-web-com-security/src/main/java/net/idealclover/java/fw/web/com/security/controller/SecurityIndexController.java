@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author DragonFly
  */
 @Controller
-@RequestMapping("/com/security/index")
+@RequestMapping("")
 public class SecurityIndexController {
 
     private static final Logger LOG = LoggerFactory.getLogger(SecurityIndexController.class);
@@ -26,7 +26,7 @@ public class SecurityIndexController {
     @RequestMapping(value = "/index")
     public String index() {
         LOG.info("index.......");
-        return "index";
+        return "/com/security/views/index";
     }
 
     /**
@@ -35,7 +35,7 @@ public class SecurityIndexController {
     @RequestMapping(value = "/common")
     public String myJsp() {
         LOG.info("common.......");
-        return "common";
+        return "/com/security/views/common";
     }
 
     /**
@@ -44,6 +44,6 @@ public class SecurityIndexController {
     @RequestMapping(value = "/admin")
     public String admin() {
         LOG.info("admin.......");
-        return "admin";
+        return "/com/security/views/admin";
     }
 }

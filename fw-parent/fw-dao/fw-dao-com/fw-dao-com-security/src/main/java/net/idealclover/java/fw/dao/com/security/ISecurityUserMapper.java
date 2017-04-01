@@ -6,11 +6,13 @@
 package net.idealclover.java.fw.dao.com.security;
 
 import net.idealclover.java.fw.po.com.security.User;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author DragonFly
  */
+@Repository("securityUserMapper")
 public interface ISecurityUserMapper {
 
     /**

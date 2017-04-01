@@ -7,11 +7,13 @@ package net.idealclover.java.fw.dao.com.security;
 
 import java.util.List;
 import net.idealclover.java.fw.po.com.security.Role;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author DragonFly
  */
+@Repository("securityRoleMapper")
 public interface ISecurityRoleMapper {
 
     /**

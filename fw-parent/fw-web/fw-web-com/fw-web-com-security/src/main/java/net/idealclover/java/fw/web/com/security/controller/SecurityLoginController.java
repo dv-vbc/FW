@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author DragonFly
  */
 @Controller
-@RequestMapping("/com/security/login")
+@RequestMapping("")
 public class SecurityLoginController {
     private static final Logger LOG = LoggerFactory.getLogger(SecurityLoginController.class);
     
@@ -33,7 +33,7 @@ public class SecurityLoginController {
         }else if("3".equals(error)) {
             LOG.info("会话超时!");
         }
-        return "login";
+        return "/com/security/views/login";
     }
     
     /**
@@ -42,7 +42,7 @@ public class SecurityLoginController {
     @RequestMapping(value="/denied")
     public String denied(){
         LOG.info("denied......");
-        return "denied";
+        return "/com/security/views/denied";
     }
     
     /**
@@ -51,6 +51,6 @@ public class SecurityLoginController {
     @RequestMapping(value="/timeout")
     public String timedout(){
         LOG.info("timeout......");
-        return "timedout";
+        return "/com/security/views/timedout";
     }
 }
