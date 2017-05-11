@@ -48,12 +48,10 @@
         <dependency>
             <groupId>org.aspectj</groupId>  
             <artifactId>aspectjrt</artifactId>  
-            <version>${aspectj.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.0.27</version>
         </dependency>
     </dependencies>
 </project>
