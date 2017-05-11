@@ -1,0 +1,1 @@
+D:\tools\java8\jdk1.8.0_112\bin\java -Djava.ext.dirs=./lib -jar generateImportCarSql.jar
