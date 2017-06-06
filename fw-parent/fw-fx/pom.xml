@@ -8,7 +8,8 @@
     </parent>
     <artifactId>fw-fx</artifactId>
     <packaging>pom</packaging>
-  <modules>
-    <module>fw-fx-esckit</module>
-  </modules>
+    <modules>
+        <module>fw-fx-esckit</module>
+    <module>fw-fx-testkit</module>
+    </modules>
 </project>
