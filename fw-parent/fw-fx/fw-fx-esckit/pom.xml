@@ -102,31 +102,23 @@
     <build>
         <finalName>TransTool</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
-       <!--  <resources>
-            控制资源文件的拷贝 
+        <resources>
+            <!--控制资源文件的拷贝-->
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.tld</include>
-                </includes>-->
-                <!--<filtering>false</filtering>-->
-
-                <!-- 配置文件外置（在打包时取消注释）
-                   资源文件拷贝到编译输出路径target的子文件夹config目录下，最终结构如下:
-                   target
-                      ...config
-                          ...spring
-                          ...mapper
-                          ...env
-                      ...lib
-                      ...generateImportCarSql.jar
-                -->
-                <!--
+                    <include>**/jdbc.properties</include>
+                </includes>
                 <targetPath>${project.build.directory}/config</targetPath>
-            </resource>
-        </resources>-->
+            </resource> 
+            <!--控制资源文件的拷贝-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/jdbc.properties</exclude>
+                </excludes>
+            </resource> 
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -169,12 +161,10 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
-                        <!-- 给清单文件添加键值对(配置文件外置) 
-                       
-                       <manifestEntries>
-                           <Class-Path>config/</Class-Path>
-                       </manifestEntries>
-                        -->
+                        <!-- 给清单文件添加键值对(配置文件外置)  -->
+                        <manifestEntries>
+                            <Class-Path>config/</Class-Path>
+                        </manifestEntries>
                     </archive>
                     <classesDirectory>
                     </classesDirectory>
@@ -189,7 +179,7 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-            <!-- 打包source文件为jar文件 -->
+            <!-- 打包source文件为jar文件 
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.1</version>
@@ -206,7 +196,36 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--                
+            -->
+            <!-- 需要打成可执行包的文件复制-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>copy-for-exe</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <echo message="copy package to deploy dir"/>
+                                <mkdir dir="${project.build.directory}/exein" />  
+                                 <copy todir="${project.build.directory}/exein" overwrite="true">  
+                                    <fileset dir="${project.build.directory}">
+                                        <include name="lib/" />  
+                                        <include name="config/" />
+                                        <include name="TransTool.jar" />  
+                                    </fileset>  
+                                </copy>                                                                                                                                                                            
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin> 
+            <!-- 将项目打包成exe   -->        
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -214,7 +233,6 @@
                 <executions>
                     <execution>
                         <id>unpack-dependencies</id>
-                        
                         <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
@@ -228,11 +246,11 @@
                                 <argument>-appclass</argument>
                                 <argument>${mainClass}</argument>
                                 <argument>-srcdir</argument>
-                                <argument>${project.build.directory}</argument>
+                                <argument>${project.build.directory}/exein</argument>
                                 <argument>-outdir</argument>
                                 <argument>${project.build.directory}/exeout</argument>
                                 <argument>-outfile</argument>
-                                <argument>TransToolInstaller</argument>
+                                <argument>TransToolInst</argument>
                                 <argument>-vendor</argument>
                                 <argument>ForSaven</argument>
                                 <argument>-title</argument>
@@ -242,7 +260,7 @@
                     </execution>
                 </executions>  
             </plugin>
-            -->
+              
         </plugins>
     </build>
   

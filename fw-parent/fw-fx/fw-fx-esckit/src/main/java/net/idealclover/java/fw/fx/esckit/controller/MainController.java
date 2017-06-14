@@ -5,6 +5,7 @@
  */
 package net.idealclover.java.fw.fx.esckit.controller;
 
+import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import net.idealclover.java.fw.fx.esckit.core.FXMLController;
 import net.idealclover.java.fw.fx.esckit.core.FXMLRouteController;
@@ -33,6 +34,11 @@ public class MainController implements FXMLController {
     @Override
     public String getTitle() {
         return title;
+    }
+    
+    @FXML
+    public void exit() {
+        System.exit(0);
     }
 
 }

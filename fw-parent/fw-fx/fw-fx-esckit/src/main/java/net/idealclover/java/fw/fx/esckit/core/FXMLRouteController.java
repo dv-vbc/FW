@@ -45,7 +45,6 @@ public class FXMLRouteController {
             FXMLController fxmlController = (FXMLController) context.getBean(key + "Controller");
             fxmlController.setStage(primaryStage);
             loader.setControllerFactory((Class<?> param) -> fxmlController);
-            loader.setController(fxmlController);
             loadermap.put(key, loader);
         }
         Parent root = null;

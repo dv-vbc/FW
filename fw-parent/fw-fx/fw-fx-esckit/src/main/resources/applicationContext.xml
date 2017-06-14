@@ -22,7 +22,7 @@
     
     <!-- 引入配置文件 -->  
     <!-- 引入属性文件 -->
-    <context:property-placeholder location="classpath:jdbc.properties" />
+    <context:property-placeholder location="classpath*:jdbc.properties" />
     
     <!--
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
