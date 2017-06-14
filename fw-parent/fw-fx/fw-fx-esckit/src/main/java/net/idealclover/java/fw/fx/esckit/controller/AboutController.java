@@ -5,6 +5,8 @@
  */
 package net.idealclover.java.fw.fx.esckit.controller;
 
+import java.net.URI;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import net.idealclover.java.fw.fx.esckit.core.FXMLController;
@@ -16,15 +18,15 @@ import org.springframework.stereotype.Controller;
  *
  * @author DragonFly
  */
-@Controller("mainController")
-public class MainController implements FXMLController {
+@Controller("aboutController")
+public class AboutController implements FXMLController {
 
     @Autowired
     private FXMLRouteController fxmlRouteController;
 
     private Stage stage;
 
-    private final String title = "ETL Tool for KB Platform";
+    private final String title = "About ETL Tool for KB Platform";
 
     @Override
     public void setStage(Stage stage) {
@@ -36,15 +38,19 @@ public class MainController implements FXMLController {
         stage.setResizable(false);
         stage.setTitle(this.title);
     }
-    
+
     @FXML
-    public void exit() {
-        System.exit(0);
+    public void done() {
+        stage.close();
     }
-    
+
     @FXML
-    public void about() {
-        fxmlRouteController.showDialog("about");
+    public void email() {
+        try {
+            java.awt.Desktop.getDesktop().mail(new URI("mailto:service@idealclover.net?subject=Counselling%20service%20about%20the%20ETL%20Tool%20for%20KB%20Platform"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

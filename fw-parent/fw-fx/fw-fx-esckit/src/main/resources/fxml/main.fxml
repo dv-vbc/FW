@@ -19,12 +19,6 @@
                      </accelerator></MenuItem>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Session">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Log on..." />
-                  <MenuItem mnemonicParsing="false" text="Log off" />
-            </items>
-          </Menu>
             <Menu mnemonicParsing="false" text="Tools">
               <items>
                 <MenuItem mnemonicParsing="false" text="Import..." />
@@ -33,7 +27,7 @@
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About..." />
+              <MenuItem mnemonicParsing="false" onAction="#about" text="About..." />
             </items>
           </Menu>
         </menus>

@@ -41,13 +41,12 @@ public class LoginController implements FXMLController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-    @Override
-    public String getTitle() {
-        return title;
+    
+    @FXML
+    protected void initialize(){
+        stage.setResizable(false);
+        stage.setTitle(this.title);
     }
-    
-    
 
     @FXML
     Label header;

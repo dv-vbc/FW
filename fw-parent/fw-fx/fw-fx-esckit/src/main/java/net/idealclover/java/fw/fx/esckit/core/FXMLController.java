@@ -15,7 +15,5 @@ import javafx.stage.Stage;
 public interface FXMLController extends Serializable{
 
     public void setStage(Stage stage);
-    
-    public String getTitle();
 
 }

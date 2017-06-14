@@ -36,17 +36,12 @@ public class FXMLRouteController {
         this.context = context;
     }
 
-    private Map<String, FXMLLoader> loadermap = new HashMap<String, FXMLLoader>();
-
     public void showScene(String key) {
-        FXMLLoader loader = loadermap.get(key);
-        if (loader == null) {
-            loader = new FXMLLoader(getClass().getResource("/fxml/" + key + ".fxml"));
-            FXMLController fxmlController = (FXMLController) context.getBean(key + "Controller");
-            fxmlController.setStage(primaryStage);
-            loader.setControllerFactory((Class<?> param) -> fxmlController);
-            loadermap.put(key, loader);
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + key + ".fxml"));
+        FXMLController fxmlController = (FXMLController) context.getBean(key + "Controller");
+        fxmlController.setStage(primaryStage);
+        loader.setControllerFactory((Class<?> param) -> fxmlController);
+
         Parent root = null;
         try {
             root = loader.load();
@@ -55,7 +50,6 @@ public class FXMLRouteController {
             throw new RuntimeException("Failed to load \"" + key + "\"!");
         }
         Scene scene = new Scene(root);
-        primaryStage.setTitle(((FXMLController) loader.getController()).getTitle());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -65,14 +59,11 @@ public class FXMLRouteController {
         dialog.initOwner(primaryStage);
         dialog.initModality(Modality.WINDOW_MODAL);
 
-        FXMLLoader loader = loadermap.get(key);
-        if (loader == null) {
-            loader = new FXMLLoader(getClass().getResource("/fxml/" + key + ".fxml"));
-            FXMLController fxmlController = (FXMLController) context.getBean(key + "Controller");
-            fxmlController.setStage(dialog);
-            loader.setControllerFactory((Class<?> param) -> fxmlController);
-            loadermap.put(key, loader);
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + key + ".fxml"));
+        FXMLController fxmlController = (FXMLController) context.getBean(key + "Controller");
+        fxmlController.setStage(dialog);
+        loader.setControllerFactory((Class<?> param) -> fxmlController);
+
         Parent root = null;
         try {
             root = loader.load();
@@ -81,7 +72,6 @@ public class FXMLRouteController {
             throw new RuntimeException("Failed to load \"" + key + "\"!");
         }
         Scene scene = new Scene(root);
-        dialog.setTitle(((FXMLController) loader.getController()).getTitle());
         dialog.setScene(scene);
         dialog.show();
     }
