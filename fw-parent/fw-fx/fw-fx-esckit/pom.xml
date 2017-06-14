@@ -103,21 +103,21 @@
         <finalName>TransTool</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
-            <!--控制资源文件的拷贝-->
+            <!--控制资源文件的拷贝
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/jdbc.properties</include>
                 </includes>
                 <targetPath>${project.build.directory}/config</targetPath>
-            </resource> 
-            <!--控制资源文件的拷贝-->
+            </resource> 1-->
+            <!--控制资源文件的拷贝
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
                     <exclude>**/jdbc.properties</exclude>
                 </excludes>
-            </resource> 
+            </resource> 2-->
         </resources>
         <plugins>
             <plugin>
@@ -197,7 +197,7 @@
                 </executions>
             </plugin>
             -->
-            <!-- 需要打成可执行包的文件复制-->
+            <!-- 需要打成可执行包的文件复制
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -224,8 +224,8 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin> 
-            <!-- 将项目打包成exe   -->        
+            </plugin> 3-->
+            <!-- 将项目打包成exe       
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -260,7 +260,7 @@
                     </execution>
                 </executions>  
             </plugin>
-              
+               4-->   
         </plugins>
     </build>
   
