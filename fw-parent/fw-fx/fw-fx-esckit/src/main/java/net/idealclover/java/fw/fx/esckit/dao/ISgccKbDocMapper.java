@@ -5,6 +5,7 @@
  */
 package net.idealclover.java.fw.fx.esckit.dao;
 
+import java.util.List;
 import net.idealclover.java.fw.fx.esckit.po.SgccKbDoc;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,7 @@ import org.springframework.stereotype.Repository;
 public interface ISgccKbDocMapper {
     
     public SgccKbDoc getModel(Long id);
+    
+    public List<SgccKbDoc> list(String btime, String etime);
     
 }

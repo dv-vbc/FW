@@ -6,11 +6,12 @@
 package net.idealclover.java.fw.fx.esckit.controller;
 
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -22,6 +23,7 @@ import net.idealclover.java.fw.fx.esckit.core.FXMLController;
 import net.idealclover.java.fw.fx.esckit.core.FXMLRouteController;
 import net.idealclover.java.fw.fx.esckit.service.ITransService;
 import net.idealclover.java.fw.fx.esckit.vo.DocTableVo;
+import net.idealclover.java.fw.fx.esckit.vo.DocVo;
 import net.idealclover.java.fw.fx.esckit.vo.SysparaVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -98,30 +100,58 @@ public class MainController implements FXMLController {
         observableList.get(0).setEditable(true);
         observableList.get(0).setCellValueFactory(new PropertyValueFactory("checkbox"));
         observableList.get(1).setCellValueFactory(new PropertyValueFactory("docDomain"));
+        observableList.get(2).setCellValueFactory(new PropertyValueFactory("docType"));
+        observableList.get(3).setCellValueFactory(new PropertyValueFactory("title"));
+        observableList.get(4).setCellValueFactory(new PropertyValueFactory("author"));
+        observableList.get(5).setCellValueFactory(new PropertyValueFactory("keyword"));
+        observableList.get(6).setCellValueFactory(new PropertyValueFactory("summary"));
+        observableList.get(7).setCellValueFactory(new PropertyValueFactory("filename"));
+        observableList.get(8).setCellValueFactory(new PropertyValueFactory("filetype"));
+        observableList.get(9).setCellValueFactory(new PropertyValueFactory("filesize"));
+        observableList.get(10).setCellValueFactory(new PropertyValueFactory("oldname"));
+        observableList.get(11).setCellValueFactory(new PropertyValueFactory("relapath"));
+        observableList.get(12).setCellValueFactory(new PropertyValueFactory("oper"));
+        observableList.get(13).setCellValueFactory(new PropertyValueFactory("opertime"));
 
-       // query();
-       ObservableList<DocTableVo> list = FXCollections.observableArrayList();
-        DocTableVo vo1 = new DocTableVo();
-        vo1.setCheckbox(true);
-        vo1.setDocDomain("知识库");
-        DocTableVo vo2 = new DocTableVo();
-        vo2.setCheckbox(true);
-        vo2.setDocDomain("三标体系");
-        list.add(vo1);
-        list.add(vo2);
-        docTv.setItems(list);
-        
-        
+        query();
     }
 
     @FXML
     public void query() {
+
+        //设置查询条件
+        DocVo vo = new DocVo();
+        LocalDate btime = btimeDp.getValue();
+        String btimeStr = btime.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        vo.setBtime(btimeStr);
+        LocalDate etime = etimeDp.getValue();
+        String etimeStr = etime.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        vo.setEtime(etimeStr);
+
+        // 执行查询
+        List<DocTableVo> data;
+        try {
+            data = service.listDoc4Tv(vo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            data = new ArrayList<>();
+        }
+
+        // 填充数据
+        ObservableList<DocTableVo> list = FXCollections.observableArrayList();
+        list.clear();
+        for (DocTableVo dtVo : data) {
+            dtVo.setCheckbox(true);
+            list.add(dtVo);
+        }
+        docTv.setItems(list);
+
         
         ObservableList<DocTableVo> list1 = docTv.getItems();
-        for (DocTableVo vo : list1) {
-            if (vo.getCheckbox()) {
-                
-                System.out.println(vo.getDocDomain());
+        for (DocTableVo vo1 : list1) {
+            if (vo1.getCheckbox()) {
+
+                System.out.println(vo1.getDocDomain());
             }
         }
     }

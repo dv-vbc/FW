@@ -35,6 +35,8 @@ public class SgccKbDoc implements Serializable {
     private Long fileId;// 上传成功的文件id 隐藏的
     private String sn;
     private String sync;
+    
+    private SgccPFile sgccPFile;
 
     public Long getId() {
         return id;
@@ -179,5 +181,15 @@ public class SgccKbDoc implements Serializable {
     public void setSync(String sync) {
         this.sync = sync;
     }
+
+    public SgccPFile getSgccPFile() {
+        return sgccPFile;
+    }
+
+    public void setSgccPFile(SgccPFile sgccPFile) {
+        this.sgccPFile = sgccPFile;
+    }
+    
+    
 
 }

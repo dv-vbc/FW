@@ -31,6 +31,10 @@ public class DocVo {
     private Long fileId;// 上传成功的文件id 隐藏的
     private String sn;
     private String sync;
+    
+    // 查询条件
+    private String btime;
+    private String etime;
 
     public Long getId() {
         return id;
@@ -174,6 +178,22 @@ public class DocVo {
 
     public void setSync(String sync) {
         this.sync = sync;
+    }
+
+    public String getBtime() {
+        return btime;
+    }
+
+    public void setBtime(String btime) {
+        this.btime = btime;
+    }
+
+    public String getEtime() {
+        return etime;
+    }
+
+    public void setEtime(String etime) {
+        this.etime = etime;
     }
 
 }

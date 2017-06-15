@@ -6,7 +6,6 @@
 package net.idealclover.java.fw.fx.esckit.dao;
 
 import net.idealclover.java.fw.fx.esckit.po.PSyspara;
-import net.idealclover.java.fw.fx.esckit.po.SgccKbDoc;
 import org.springframework.stereotype.Repository;
 
 /**

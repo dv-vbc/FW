@@ -6,6 +6,7 @@
 package net.idealclover.java.fw.fx.esckit.vo;
 
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -13,25 +14,27 @@ import javafx.beans.property.SimpleStringProperty;
  * @author DragonFly
  */
 public final class DocTableVo {
-    private String id;
+    private Long id;
     private final SimpleBooleanProperty checkbox = new SimpleBooleanProperty();
     private final SimpleStringProperty docDomain = new SimpleStringProperty();
     private final SimpleStringProperty docType = new SimpleStringProperty();
     private final SimpleStringProperty title = new SimpleStringProperty();
+    private final SimpleStringProperty author = new SimpleStringProperty();
     private final SimpleStringProperty keyword = new SimpleStringProperty();
     private final SimpleStringProperty summary = new SimpleStringProperty();
     private final SimpleStringProperty filename = new SimpleStringProperty();
     private final SimpleStringProperty filetype = new SimpleStringProperty();
-    private final SimpleStringProperty filesize = new SimpleStringProperty();
+    private final SimpleLongProperty filesize = new SimpleLongProperty();
     private final SimpleStringProperty oldname = new SimpleStringProperty();
+    private final SimpleStringProperty relapath = new SimpleStringProperty();
     private final SimpleStringProperty oper = new SimpleStringProperty();
     private final SimpleStringProperty opertime = new SimpleStringProperty();
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
@@ -84,6 +87,18 @@ public final class DocTableVo {
         return title;
     }
             
+    public String getAuthor() {
+        return author.get();
+    }
+    
+    public void setAuthor(String author) {
+        this.author.set(author);
+    }
+    
+    public SimpleStringProperty authorProperty() {
+        return author;
+    }
+          
     public String getKeyword() {
         return keyword.get();
     }
@@ -132,15 +147,15 @@ public final class DocTableVo {
         return filetype;
     }
             
-    public String getFilesize() {
+    public Long getFilesize() {
         return filesize.get();
     }
     
-    public void setFilesize(String filesize) {
+    public void setFilesize(Long filesize) {
         this.filesize.set(filesize);
     }
     
-    public SimpleStringProperty filesizeProperty() {
+    public SimpleLongProperty filesizeProperty() {
         return filesize;
     }
             
@@ -154,6 +169,18 @@ public final class DocTableVo {
     
     public SimpleStringProperty oldnameProperty() {
         return oldname;
+    }
+         
+    public String getRelapath() {
+        return relapath.get();
+    }
+    
+    public void setRelapath(String relapath) {
+        this.relapath.set(relapath);
+    }
+    
+    public SimpleStringProperty relapathProperty() {
+        return relapath;
     }
             
     public String getOper() {

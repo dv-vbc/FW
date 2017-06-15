@@ -36,33 +36,6 @@
    </top>
    <left>
       <BorderPane prefHeight="575.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <center>
-            <ScrollPane BorderPane.alignment="CENTER">
-               <content>
-                  <TableView fx:id="docTv" prefHeight="517.0" prefWidth="1005.0">
-                    <columns>
-                        <TableColumn fx:id="checkboxTc" prefWidth="25.0" />
-                      <TableColumn prefWidth="75.0" text="文档大类" />
-                      <TableColumn prefWidth="75.0" text="文档小类" />
-                        <TableColumn prefWidth="75.0" text="文档标题" />
-                        <TableColumn prefWidth="75.0" text="作者" />
-                        <TableColumn prefWidth="75.0" text="关键字" />
-                        <TableColumn prefWidth="75.0" text="摘要" />
-                        <TableColumn prefWidth="75.0" text="文件名称" />
-                        <TableColumn prefWidth="75.0" text="文件类型" />
-                        <TableColumn prefWidth="75.0" text="文件大小" />
-                        <TableColumn prefWidth="75.0" text="文件原名" />
-                        <TableColumn prefWidth="75.0" text="文件路径" />
-                        <TableColumn prefWidth="75.0" text="操作员" />
-                        <TableColumn prefWidth="75.0" text="操作时间" />
-                    </columns>
-                  </TableView>
-               </content>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="10.0" top="10.0" />
-               </BorderPane.margin>
-            </ScrollPane>
-         </center>
          <top>
             <HBox prefHeight="23.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                <children>
@@ -78,6 +51,29 @@
                </BorderPane.margin>
             </HBox>
          </top>
+         <center>
+            <TableView fx:id="docTv" prefHeight="522.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn fx:id="checkboxTc" prefWidth="25.0" />
+                <TableColumn prefWidth="75.0" text="文档大类" />
+                <TableColumn prefWidth="75.0" text="文档小类" />
+                  <TableColumn prefWidth="75.0" text="文档标题" />
+                  <TableColumn prefWidth="75.0" text="作者" />
+                  <TableColumn prefWidth="75.0" text="关键字" />
+                  <TableColumn prefWidth="75.0" text="摘要" />
+                  <TableColumn prefWidth="75.0" text="文件名称" />
+                  <TableColumn prefWidth="75.0" text="文件类型" />
+                  <TableColumn prefWidth="75.0" text="文件大小" />
+                  <TableColumn prefWidth="75.0" text="文件原名" />
+                  <TableColumn prefWidth="75.0" text="文件路径" />
+                  <TableColumn prefWidth="75.0" text="操作员" />
+                  <TableColumn prefWidth="75.0" text="操作时间" />
+              </columns>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" top="10.0" />
+               </BorderPane.margin>
+            </TableView>
+         </center>
       </BorderPane>
    </left>
 </BorderPane>
