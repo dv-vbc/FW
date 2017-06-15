@@ -43,17 +43,17 @@ public class LoginController implements FXMLController {
     }
     
     @FXML
-    protected void initialize(){
-        stage.setResizable(false);
-        stage.setTitle(this.title);
-    }
-
-    @FXML
     Label header;
     @FXML
     TextField username;
     @FXML
     TextField password;
+    
+    @FXML
+    protected void initialize(){
+        stage.setResizable(false);
+        stage.setTitle(this.title);
+    }
 
     @FXML
     public void login() {
