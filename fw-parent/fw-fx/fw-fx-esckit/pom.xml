@@ -121,7 +121,7 @@
                 <excludes>
                     <exclude>**/jdbc.properties</exclude>
                 </excludes>
-            </resource> 2-->
+            </resource>2-->
         </resources>
         <plugins>
             <plugin>
@@ -229,7 +229,7 @@
                     </execution>
                 </executions>
             </plugin> 3-->
-            <!-- 将项目打包成exe       
+            <!-- 将项目打包成exe
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -264,7 +264,7 @@
                     </execution>
                 </executions>  
             </plugin>
-               4-->   
+                 4--> 
         </plugins>
     </build>
   

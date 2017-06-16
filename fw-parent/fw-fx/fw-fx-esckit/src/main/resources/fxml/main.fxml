@@ -23,7 +23,7 @@
             <Menu mnemonicParsing="false" text="操作">
               <items>
                 <MenuItem fx:id="importMi" mnemonicParsing="false" text="导入..." />
-                  <MenuItem fx:id="exportMi" mnemonicParsing="false" text="导出..." />
+                  <MenuItem fx:id="exportMi" mnemonicParsing="false" onAction="#export" text="导出..." />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="帮助">

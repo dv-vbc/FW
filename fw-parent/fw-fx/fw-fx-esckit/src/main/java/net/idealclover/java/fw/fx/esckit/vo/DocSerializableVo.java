@@ -3,19 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.idealclover.java.fw.fx.esckit.po;
+package net.idealclover.java.fw.fx.esckit.vo;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import org.apache.ibatis.type.Alias;
 
 /**
  *
  * @author DragonFly
  */
-@Alias("SgccKbDoc")
-public class SgccKbDoc implements Serializable {
+public class DocSerializableVo implements Serializable{
 
     private Long id;
     private String oper;
@@ -23,23 +20,21 @@ public class SgccKbDoc implements Serializable {
     private Date optime;
     private String docDomain;
     private String docType;
-    private Integer docLevel;
-    private String docState;
+//    private Integer docLevel;
+//    private String docState;
     private String keyword;
     private String title;
     private String summary;
     private String author;
-    private Date uploadtime;
-    private Integer previewCount;
-    private Integer downloadCount;
-    private Long fileId;// 上传成功的文件id 隐藏的
-    private String sn;
-    private String sync;
+    private Long fileId;
+
+    private String filename;
+    private String filetype;
+    private Long filesize;
+    private String oldname;
+    private String relapath;
     
-    private String docDomainName;
-    private String docTypeName;
     
-    private SgccPFile sgccPFile;
 
     public Long getId() {
         return id;
@@ -89,22 +84,6 @@ public class SgccKbDoc implements Serializable {
         this.docType = docType;
     }
 
-    public Integer getDocLevel() {
-        return docLevel;
-    }
-
-    public void setDocLevel(Integer docLevel) {
-        this.docLevel = docLevel;
-    }
-
-    public String getDocState() {
-        return docState;
-    }
-
-    public void setDocState(String docState) {
-        this.docState = docState;
-    }
-
     public String getKeyword() {
         return keyword;
     }
@@ -137,30 +116,6 @@ public class SgccKbDoc implements Serializable {
         this.author = author;
     }
 
-    public Date getUploadtime() {
-        return uploadtime;
-    }
-
-    public void setUploadtime(Date uploadtime) {
-        this.uploadtime = uploadtime;
-    }
-
-    public Integer getPreviewCount() {
-        return previewCount;
-    }
-
-    public void setPreviewCount(Integer previewCount) {
-        this.previewCount = previewCount;
-    }
-
-    public Integer getDownloadCount() {
-        return downloadCount;
-    }
-
-    public void setDownloadCount(Integer downloadCount) {
-        this.downloadCount = downloadCount;
-    }
-
     public Long getFileId() {
         return fileId;
     }
@@ -169,48 +124,46 @@ public class SgccKbDoc implements Serializable {
         this.fileId = fileId;
     }
 
-    public String getSn() {
-        return sn;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setSn(String sn) {
-        this.sn = sn;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public String getSync() {
-        return sync;
+    public String getFiletype() {
+        return filetype;
     }
 
-    public void setSync(String sync) {
-        this.sync = sync;
+    public void setFiletype(String filetype) {
+        this.filetype = filetype;
     }
 
-    public String getDocDomainName() {
-        return docDomainName;
+    public Long getFilesize() {
+        return filesize;
     }
 
-    public void setDocDomainName(String docDomainName) {
-        this.docDomainName = docDomainName;
+    public void setFilesize(Long filesize) {
+        this.filesize = filesize;
     }
 
-    public String getDocTypeName() {
-        return docTypeName;
+    public String getOldname() {
+        return oldname;
     }
 
-    public void setDocTypeName(String docTypeName) {
-        this.docTypeName = docTypeName;
-    }
-    
-    
-
-    public SgccPFile getSgccPFile() {
-        return sgccPFile;
+    public void setOldname(String oldname) {
+        this.oldname = oldname;
     }
 
-    public void setSgccPFile(SgccPFile sgccPFile) {
-        this.sgccPFile = sgccPFile;
+    public String getRelapath() {
+        return relapath;
     }
-    
+
+    public void setRelapath(String relapath) {
+        this.relapath = relapath;
+    }
+
     
 
 }

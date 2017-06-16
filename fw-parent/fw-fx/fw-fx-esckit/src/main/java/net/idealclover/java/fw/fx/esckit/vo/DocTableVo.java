@@ -15,9 +15,13 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public final class DocTableVo {
     private Long id;
+    private Long fileId;
+    private String opdept;
+    private String docDomain;
+    private String docType;
     private final SimpleBooleanProperty checkbox = new SimpleBooleanProperty();
-    private final SimpleStringProperty docDomain = new SimpleStringProperty();
-    private final SimpleStringProperty docType = new SimpleStringProperty();
+    private final SimpleStringProperty docDomainName = new SimpleStringProperty();
+    private final SimpleStringProperty docTypeName = new SimpleStringProperty();
     private final SimpleStringProperty title = new SimpleStringProperty();
     private final SimpleStringProperty author = new SimpleStringProperty();
     private final SimpleStringProperty keyword = new SimpleStringProperty();
@@ -28,7 +32,7 @@ public final class DocTableVo {
     private final SimpleStringProperty oldname = new SimpleStringProperty();
     private final SimpleStringProperty relapath = new SimpleStringProperty();
     private final SimpleStringProperty oper = new SimpleStringProperty();
-    private final SimpleStringProperty opertime = new SimpleStringProperty();
+    private final SimpleStringProperty optime = new SimpleStringProperty();
 
     public Long getId() {
         return id;
@@ -37,6 +41,40 @@ public final class DocTableVo {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
+    }
+
+    public String getOpdept() {
+        return opdept;
+    }
+
+    public void setOpdept(String opdept) {
+        this.opdept = opdept;
+    }
+
+    public String getDocDomain() {
+        return docDomain;
+    }
+
+    public void setDocDomain(String docDomain) {
+        this.docDomain = docDomain;
+    }
+
+    public String getDocType() {
+        return docType;
+    }
+
+    public void setDocType(String docType) {
+        this.docType = docType;
+    }
+    
+    
     
     public boolean getCheckbox() {
         return checkbox.get();
@@ -50,29 +88,29 @@ public final class DocTableVo {
         return checkbox;
     }
         
-    public String getDocDomain() {
-        return docDomain.get();
+    public String getDocDomainName() {
+        return docDomainName.get();
     }
     
-    public void setDocDomain(String docDomain) {
-        this.docDomain.set(docDomain);
+    public void setDocDomainName(String docDomainName) {
+        this.docDomainName.set(docDomainName);
     }
     
-    public SimpleStringProperty docDomainProperty() {
-        return docDomain;
+    public SimpleStringProperty docDomainNameProperty() {
+        return docDomainName;
     }
     
             
-    public String getDocType() {
-        return docType.get();
+    public String getDocTypeName() {
+        return docTypeName.get();
     }
     
-    public void setDocType(String docType) {
-        this.docType.set(docType);
+    public void setDocTypeName(String docTypeName) {
+        this.docTypeName.set(docTypeName);
     }
     
-    public SimpleStringProperty docTypeProperty() {
-        return docType;
+    public SimpleStringProperty docTypeNameProperty() {
+        return docTypeName;
     }
             
     public String getTitle() {
@@ -195,16 +233,16 @@ public final class DocTableVo {
         return oper;
     }
             
-    public String getOpertime() {
-        return opertime.get();
+    public String getOptime() {
+        return optime.get();
     }
     
-    public void setOpertime(String opertime) {
-        this.opertime.set(opertime);
+    public void setOptime(String optime) {
+        this.optime.set(optime);
     }
     
-    public SimpleStringProperty opertimeProperty() {
-        return opertime;
+    public SimpleStringProperty optimeProperty() {
+        return optime;
     }
             
 }

@@ -27,6 +27,8 @@
         <result property="fileId" column="file_id" />
         <result property="sn" column="sn" />
         <result property="sync" column="sync" />
+        <result property="docDomainName" column="doc_domain_name" />
+        <result property="docTypeName" column="doc_type_name" />
 
         <!-- association字面意思关联，这里只专门做一对一关联； property表示是com.mybatis.bean.StudentTemp中的属性名称； 
             javaType表示该属性是什么类型对象 -->
@@ -49,11 +51,23 @@
     </resultMap>
     
     <select id="list" resultMap="sgccKbDocMap">
-        select *
+        select d.*,
+               f.*,
+               (select name
+                  from sgpm.p_code a1
+                 where a1.code_type = 'docdomain'
+                   and a1.value = d.doc_domain) doc_domain_name,
+               (select name
+                  from sgpm.p_code a1
+                 where a1.code_type = 'docitem'
+                   and a1.value = d.doc_type) doc_type_name
           from esc.sgcc_kb_doc d
           left join esc.sgcc_p_file f
             on d.file_id = f.id
-         where trunc(d.optime, 'dd') between to_date(#{arg0}, 'yyyy-mm-dd') and
+         where 1 = 1
+           -- and d.sync = '1'
+           and trunc(d.optime, 'dd') between to_date(#{arg0}, 'yyyy-mm-dd') and
                to_date(#{arg1}, 'yyyy-mm-dd')
+         order by d.id
     </select>
 </mapper>

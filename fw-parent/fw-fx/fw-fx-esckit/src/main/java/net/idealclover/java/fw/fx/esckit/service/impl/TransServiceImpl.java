@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import net.idealclover.java.fw.fx.esckit.core.Constant;
 import net.idealclover.java.fw.fx.esckit.dao.IPSysparaMapper;
 import net.idealclover.java.fw.fx.esckit.dao.ISgccKbDocMapper;
 import net.idealclover.java.fw.fx.esckit.po.PSyspara;
@@ -59,8 +60,12 @@ public class TransServiceImpl implements ITransService {
         for (SgccKbDoc po : list) {
             DocTableVo tvo = new DocTableVo();
             tvo.setId(po.getId());
+            tvo.setFileId(po.getFileId());
+            tvo.setOpdept(po.getOpdept());
             tvo.setDocDomain(po.getDocDomain());
             tvo.setDocType(po.getDocType());
+            tvo.setDocDomainName(po.getDocDomainName());
+            tvo.setDocTypeName(po.getDocTypeName());
             tvo.setTitle(po.getTitle());
             tvo.setAuthor(po.getAuthor());
             tvo.setKeyword(po.getKeyword());
@@ -71,7 +76,7 @@ public class TransServiceImpl implements ITransService {
             tvo.setOldname(po.getSgccPFile().getOldname());
             tvo.setRelapath(po.getSgccPFile().getRelapath());
             tvo.setOper(po.getOper());
-            tvo.setOpertime(SimpleDateFormat.getInstance().format(po.getOptime()));
+            tvo.setOptime(Constant.dffull.format(po.getOptime()));
             result.add(tvo);
         }
         
