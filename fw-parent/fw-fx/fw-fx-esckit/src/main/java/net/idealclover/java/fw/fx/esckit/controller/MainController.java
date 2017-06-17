@@ -7,19 +7,17 @@ package net.idealclover.java.fw.fx.esckit.controller;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,9 +43,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.idealclover.java.fw.fx.esckit.core.Constant;
+import net.idealclover.java.fw.fx.esckit.core.DocCompassUtil;
 import net.idealclover.java.fw.fx.esckit.core.FXMLController;
 import net.idealclover.java.fw.fx.esckit.core.FXMLRouteController;
 import net.idealclover.java.fw.fx.esckit.service.ITransService;
+import net.idealclover.java.fw.fx.esckit.vo.DocSearch;
 import net.idealclover.java.fw.fx.esckit.vo.DocSerializableVo;
 import net.idealclover.java.fw.fx.esckit.vo.DocTableVo;
 import net.idealclover.java.fw.fx.esckit.vo.DocVo;
@@ -107,13 +107,13 @@ public class MainController implements FXMLController {
         try {
             SysparaVo vo = service.getWebState();
             webState = vo.getValue();
-            if ("1".equals(webState)) {// 内网
+            if ("1".equals(webState)) {// 外网
                 importMi.setDisable(false);
                 exportMi.setDisable(true);
                 btimeDp.setDisable(true);
                 etimeDp.setDisable(true);
                 queryBtn.setDisable(true);
-            } else if ("0".equals(webState)) {//外网
+            } else if ("0".equals(webState)) {//内网
                 importMi.setDisable(true);
                 exportMi.setDisable(false);
                 btimeDp.setDisable(false);
@@ -155,9 +155,9 @@ public class MainController implements FXMLController {
         observableList.get(13).setCellValueFactory(new PropertyValueFactory("optime"));
 
         if ("1".equals(webState)) {
-            query();
-        } else if ("0".equals(webState)) {
 
+        } else if ("0".equals(webState)) {
+            query();
         }
     }
 
@@ -267,8 +267,8 @@ public class MainController implements FXMLController {
                         newfile.getParentFile().mkdirs();
                         newfile.createNewFile();
                     }
-                    try (FileWriter writer = new FileWriter(newfile);
-                            BufferedWriter out = new BufferedWriter(writer)) {
+                    try (FileOutputStream fos = new FileOutputStream(newfile);
+                            BufferedOutputStream out = new BufferedOutputStream(fos)) {
                         int c;
                         while ((c = zis.read()) != -1) {
                             out.write(c);
@@ -293,8 +293,21 @@ public class MainController implements FXMLController {
         }
 
         // 数据录入数据库
+//        DocCompassUtil docCu = new DocCompassUtil();
         for (DocSerializableVo dsvo1 : dsvolist) {
             service.saveDoc(dsvo1, fileidmap);
+//            DocSearch smodel = new DocSearch();
+//            smodel.setId(String.valueOf(dsvo1.getId()));
+//            smodel.setDocdomain(dsvo1.getDocDomain());
+//            smodel.setDoctype(dsvo1.getDocType());
+//            smodel.setKeyword(dsvo1.getKeyword());
+//            smodel.setTitle(dsvo1.getTitle());
+//            smodel.setAuthor(dsvo1.getAuthor());
+//            smodel.setUploadtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+//            smodel.setFileid(String.valueOf(dsvo1.getFileId()));
+//            smodel.setSummary(dsvo1.getSummary());
+//            smodel.setContent(dsvo1.getKeyword() + dsvo1.getSummary());
+//            docCu.index(smodel);
         }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -386,8 +399,8 @@ public class MainController implements FXMLController {
             zos.closeEntry();
 
             for (DocSerializableVo dsvof : dsvolist) {
-                try (FileReader reader = new FileReader("D:\\escfile\\upload\\".concat(dsvof.getRelapath()));
-                        BufferedReader in = new BufferedReader(reader)) {
+                try (FileInputStream fis = new FileInputStream("D:\\escfile\\upload\\".concat(dsvof.getRelapath()));
+                        BufferedInputStream in = new BufferedInputStream(fis)) {
                     zos.putNextEntry(new ZipEntry("FileData\\".concat(dsvof.getRelapath())));
                     int c;
                     while ((c = in.read()) != -1) {
@@ -438,7 +451,7 @@ public class MainController implements FXMLController {
         if (file.exists()) {
             String tmname = name.substring(0, 10);
             String rdname = name.substring(10, 12);
-            int rdint = Integer.parseInt(rdname) + 1;
+            int rdint = Integer.parseInt(rdname) + 101;
             String rdnewname = String.valueOf(rdint);
             rdnewname = rdnewname.substring(rdnewname.length() - 2, rdnewname.length());
             String newttname = tmname.concat(rdnewname);

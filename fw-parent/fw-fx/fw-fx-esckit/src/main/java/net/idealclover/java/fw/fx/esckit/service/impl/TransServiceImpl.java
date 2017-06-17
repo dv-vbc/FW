@@ -8,6 +8,7 @@ package net.idealclover.java.fw.fx.esckit.service.impl;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import net.idealclover.java.fw.fx.esckit.core.Constant;
@@ -100,8 +101,8 @@ public class TransServiceImpl implements ITransService {
         fpo.setRelapath(newrelapath);
         fpo.setUploadopr(dsvo.getOper());
         fpo.setUploadtime(dsvo.getOptime());
-        fpo.setModifyopr(dsvo.getOpdept());
-        fpo.setModifytime(dsvo.getOptime());
+        fpo.setModifyopr("SYS");
+        fpo.setModifytime(new Date());
         fpo.setModifycount(0);
         fpo.setStoretype("01");
         fpo.setOldname(dsvo.getOldname());
@@ -110,7 +111,7 @@ public class TransServiceImpl implements ITransService {
         SgccKbDoc po = new SgccKbDoc();
         po.setId(Long.MIN_VALUE);
         po.setOper(dsvo.getOper());
-        po.setOptime(dsvo.getOptime());
+        po.setOptime(new Date());
         po.setOpdept(dsvo.getOpdept());
         po.setDocDomain(dsvo.getDocDomain());
         po.setDocType(dsvo.getDocType());
@@ -123,9 +124,9 @@ public class TransServiceImpl implements ITransService {
         po.setUploadtime(dsvo.getOptime());
         po.setPreviewCount(0);
         po.setDownloadCount(0);
-        po.setFileId(fpo.getId());
+        po.setFileId(Long.parseLong(newfileid));
         po.setSn("0");
-        po.setSync(null);
+        po.setSync("");
         sgccKbDocMapper.save(po);
     }
 

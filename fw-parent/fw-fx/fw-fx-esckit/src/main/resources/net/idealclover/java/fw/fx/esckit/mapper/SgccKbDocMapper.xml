@@ -72,6 +72,22 @@
     </select>
     
     <insert id="save" parameterType="net.idealclover.java.fw.fx.esckit.po.SgccKbDoc">
+        <selectKey resultType="long" keyProperty="id" order="BEFORE">
+            select esc.seq_sgcc_kb_doc_id.nextval from dual
+        </selectKey>
+        insert into esc.sgcc_kb_doc
+        (id, oper, opdept, optime, doc_domain, doc_type,
+        doc_level, doc_state, keyword, title, summary,
+        author, uploadtime, preview_count, download_count, file_id,
+        sn, sync)
+        values
+        (#{id}, #{oper}, #{opdept}, #{optime}, #{docDomain}, #{docType}, 
+        #{docLevel}, #{docState}, #{keyword}, #{title}, #{summary}, 
+        #{author}, #{uploadtime}, #{previewCount}, #{downloadCount}, #{fileId}, 
+        #{sn}, #{sync})
+    </insert>
+    
+    <insert id="saveFile" parameterType="net.idealclover.java.fw.fx.esckit.po.SgccPFile">
         <selectKey resultType="long" keyProperty="id">
             select esc.seq_sgcc_kb_doc_id.nextval from dual
         </selectKey>
@@ -83,21 +99,5 @@
         (#{id}, #{filename}, #{filepath}, #{filetype}, #{filesize}, 
         #{uploadtime}, #{uploadopr}, #{modifytime}, #{modifyopr}, #{modifycount}, 
         #{oldname}, #{storetype}, #{relapath})
-    </insert>
-    
-    <insert id="saveFile" parameterType="net.idealclover.java.fw.fx.esckit.po.SgccPFile">
-        <selectKey resultType="long" keyProperty="id">
-            select esc.seq_sgcc_kb_doc_id.nextval from dual
-        </selectKey>
-        insert into esc.sgcc_kb_doc
-        (oper, opdept, optime, doc_domain, doc_type,
-        doc_level, doc_state, keyword, title, summary,
-        author, uploadtime, preview_count, download_count, file_id,
-        sn, sync)
-        values
-        (#{oper}, #{opdept}, #{optime}, #{docDomain}, #{docType}, 
-        #{docLevel}, #{docState}, #{keyword}, #{title}, #{summary}, 
-        #{author}, #{uploadtime}, #{preview_count}, #{download_count}, #{fileId}, 
-        #{sn}, #{sync})
     </insert>   
 </mapper>
