@@ -44,6 +44,8 @@
         <jackson.version>1.9.13</jackson.version>
         <aspectj.version>1.7.4</aspectj.version>
         <cglib.version>3.2.4</cglib.version>
+        <compass.version>2.2.0</compass.version>
+        <je.analysis.version>1.5.1</je.analysis.version>
     </properties>
     <build>
         <plugins>
@@ -315,6 +317,20 @@
                 <version>${mybatis.spring.version}</version>  
             </dependency>  
             <!-- mybatis end-->
+            <!-- compass begin -->
+            <dependency>
+                <groupId>org.compass-project</groupId>
+                <artifactId>compass</artifactId>
+                <version>${compass.version}</version>
+            </dependency>
+            <!-- compass end -->
+            <!-- je-analysis begin -->
+            <dependency>
+                <groupId>jeasy</groupId>
+                <artifactId>je-analysis</artifactId>
+                <version>${je.analysis.version}</version>
+            </dependency>
+            <!-- je-analysis end -->
             <dependency>
                 <groupId>com.qq.weixin.mp</groupId>
                 <artifactId>aes-jre1.6</artifactId>
