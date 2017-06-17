@@ -39,7 +39,6 @@ public class MainApp extends Application {
 //        scene.getStylesheets().add(getClass().getResource("/styles/application.css").toExternalForm());
 //        stage.setScene(scene);
 //        stage.show();
-        
         try {
             // Read file fxml and draw interface.
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/MyScence.fxml"));
@@ -48,7 +47,7 @@ public class MainApp extends Application {
             stage.setScene(new Scene(root));
             stage.show();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -40,6 +40,5 @@ public class SysparaVo {
     public void setValue(String value) {
         this.value = value;
     }
-   
 
 }

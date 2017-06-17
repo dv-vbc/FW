@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  *
  * @author DragonFly
  */
-public interface FXMLController extends Serializable{
+public interface FXMLController extends Serializable {
 
     public void setStage(Stage stage);
 

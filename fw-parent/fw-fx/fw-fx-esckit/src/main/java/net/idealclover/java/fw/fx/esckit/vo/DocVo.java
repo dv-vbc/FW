@@ -31,7 +31,7 @@ public class DocVo {
     private Long fileId;// 上传成功的文件id 隐藏的
     private String sn;
     private String sync;
-    
+
     // 查询条件
     private String btime;
     private String etime;

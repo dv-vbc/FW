@@ -7,6 +7,7 @@ package net.idealclover.java.fw.fx.esckit.dao;
 
 import java.util.List;
 import net.idealclover.java.fw.fx.esckit.po.SgccKbDoc;
+import net.idealclover.java.fw.fx.esckit.po.SgccPFile;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,9 +16,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("sgccKbDocMapper")
 public interface ISgccKbDocMapper {
-    
+
     public SgccKbDoc getModel(Long id);
-    
+
     public List<SgccKbDoc> list(String btime, String etime);
     
+    public void save(SgccKbDoc po);
+    
+    public void saveFile(SgccPFile po);
+
 }

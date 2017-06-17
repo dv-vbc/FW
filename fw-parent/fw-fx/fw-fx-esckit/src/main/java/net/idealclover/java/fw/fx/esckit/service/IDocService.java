@@ -12,7 +12,7 @@ import net.idealclover.java.fw.fx.esckit.vo.DocVo;
  * @author DragonFly
  */
 public interface IDocService {
-    
+
     public DocVo getDoc() throws Exception;
-    
+
 }

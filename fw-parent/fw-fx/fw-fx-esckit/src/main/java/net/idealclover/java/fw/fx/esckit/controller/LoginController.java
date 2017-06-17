@@ -29,28 +29,28 @@ public class LoginController implements FXMLController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-    
+
     @Autowired
     private FXMLRouteController fxmlRouteController;
-    
+
     private Stage stage;
-    
+
     private final String title = "Login the Platform";
 
     @Override
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    
+
     @FXML
     Label header;
     @FXML
     TextField username;
     @FXML
     TextField password;
-    
+
     @FXML
-    protected void initialize(){
+    protected void initialize() {
         stage.setResizable(false);
         stage.setTitle(this.title);
     }

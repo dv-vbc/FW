@@ -32,9 +32,9 @@ public class AboutController implements FXMLController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    
+
     @FXML
-    protected void initialize(){
+    protected void initialize() {
         stage.setResizable(false);
         stage.setTitle(this.title);
     }

@@ -35,10 +35,10 @@ public class SgccKbDoc implements Serializable {
     private Long fileId;// 上传成功的文件id 隐藏的
     private String sn;
     private String sync;
-    
+
     private String docDomainName;
     private String docTypeName;
-    
+
     private SgccPFile sgccPFile;
 
     public Long getId() {
@@ -200,8 +200,6 @@ public class SgccKbDoc implements Serializable {
     public void setDocTypeName(String docTypeName) {
         this.docTypeName = docTypeName;
     }
-    
-    
 
     public SgccPFile getSgccPFile() {
         return sgccPFile;
@@ -210,7 +208,5 @@ public class SgccKbDoc implements Serializable {
     public void setSgccPFile(SgccPFile sgccPFile) {
         this.sgccPFile = sgccPFile;
     }
-    
-    
 
 }

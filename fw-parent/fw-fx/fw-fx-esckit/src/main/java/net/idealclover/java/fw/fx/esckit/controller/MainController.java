@@ -5,29 +5,37 @@
  */
 package net.idealclover.java.fw.fx.esckit.controller;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.ByteBuffer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.Adler32;
+import java.util.zip.CheckedInputStream;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -82,6 +90,9 @@ public class MainController implements FXMLController {
     DatePicker etimeDp;
 
     @FXML
+    Button queryBtn;
+
+    @FXML
     TableView docTv;
 
     @FXML
@@ -92,19 +103,29 @@ public class MainController implements FXMLController {
         stage.setResizable(false);
         stage.setTitle(this.title);
         // 设置菜单项状态
+        String webState = "0";
         try {
             SysparaVo vo = service.getWebState();
-            String webState = vo.getValue();
-            if ("1".equals(webState)) {
+            webState = vo.getValue();
+            if ("1".equals(webState)) {// 内网
                 importMi.setDisable(false);
                 exportMi.setDisable(true);
-            } else if ("0".equals(webState)) {
+                btimeDp.setDisable(true);
+                etimeDp.setDisable(true);
+                queryBtn.setDisable(true);
+            } else if ("0".equals(webState)) {//外网
                 importMi.setDisable(true);
                 exportMi.setDisable(false);
+                btimeDp.setDisable(false);
+                etimeDp.setDisable(false);
+                queryBtn.setDisable(false);
             }
         } catch (Exception e) {
             importMi.setDisable(true);
             exportMi.setDisable(true);
+            btimeDp.setDisable(true);
+            etimeDp.setDisable(true);
+            queryBtn.setDisable(true);
         }
         // 默认查询
         // 设置默认查询条件
@@ -133,7 +154,11 @@ public class MainController implements FXMLController {
         observableList.get(12).setCellValueFactory(new PropertyValueFactory("oper"));
         observableList.get(13).setCellValueFactory(new PropertyValueFactory("optime"));
 
-        query();
+        if ("1".equals(webState)) {
+            query();
+        } else if ("0".equals(webState)) {
+
+        }
     }
 
     @FXML
@@ -168,31 +193,128 @@ public class MainController implements FXMLController {
     }
 
     @FXML
-    public void export() throws Exception {
+    public void import0() throws Exception {
+
+        List<DocSerializableVo> dsvolist = null;
+        ObservableList<DocTableVo> dtvolist = FXCollections.observableArrayList();
+        dtvolist.clear();
+
+        // 获取导入文件
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+//        fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Transport Files", "*.tra"));
-        File file = fileChooser.showSaveDialog(stage);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("文件创建失败！");
-                alert.setContentText(e.getMessage());
-                alert.initOwner(stage);
-                alert.show();
-                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, e);
-                throw new RuntimeException();
-            }
+        File file = fileChooser.showOpenDialog(stage);
+
+        if (file == null) {
+            throw new RuntimeException();
         }
+
+        if (!file.exists()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("文件不存在！");
+            alert.initOwner(stage);
+            alert.show();
+            docTv.setEditable(true);
+            throw new RuntimeException();
+        }
+
+        // 读文件，获取数据，保存文件
+        Map<String, String> fileidmap = new HashMap<String, String>();
+
+        try (FileInputStream fis = new FileInputStream(file);
+                BufferedInputStream in = new BufferedInputStream(fis);
+                CheckedInputStream csum = new CheckedInputStream(in, new Adler32());
+                ZipInputStream zis = new ZipInputStream(csum)) {
+            ZipEntry ze;
+            while ((ze = zis.getNextEntry()) != null) {
+                if ("TableData\\A0".equals(ze.getName())) {
+                    ObjectInputStream ois = new ObjectInputStream(zis);
+                    dsvolist = (List<DocSerializableVo>) ois.readObject();
+                    for (DocSerializableVo dsvo : dsvolist) {
+                        DocTableVo dtvo = new DocTableVo();
+                        dtvo.setId(dsvo.getId());
+                        dtvo.setFileId(dsvo.getFileId());
+                        dtvo.setOpdept(dsvo.getOpdept());
+                        dtvo.setDocDomain(dsvo.getDocDomain());
+                        dtvo.setDocType(dsvo.getDocType());
+                        dtvo.setDocDomainName(dsvo.getDocDomainName());
+                        dtvo.setDocTypeName(dsvo.getDocTypeName());
+                        dtvo.setTitle(dsvo.getTitle());
+                        dtvo.setAuthor(dsvo.getAuthor());
+                        dtvo.setKeyword(dsvo.getKeyword());
+                        dtvo.setSummary(dsvo.getSummary());
+                        dtvo.setFilename(dsvo.getFilename());
+                        dtvo.setFiletype(dsvo.getFiletype());
+                        dtvo.setFilesize(dsvo.getFilesize());
+                        dtvo.setOldname(dsvo.getOldname());
+                        dtvo.setRelapath(dsvo.getRelapath());
+                        dtvo.setOper(dsvo.getOper());
+                        dtvo.setOptime(Constant.dffull.format(dsvo.getOptime()));
+                        dtvolist.add(dtvo);
+                    }
+                    docTv.setItems(dtvolist);
+                    //    ois.close();
+                } else {
+                    if (!ze.getName().startsWith("FileData") || ze.getName().length() != 44) {
+                        continue;
+                    }
+                    String fileid = ze.getName().substring(32, 44);
+                    File docfile = new File("D:\\escfile\\upload\\".concat(ze.getName().substring(9)));
+                    String newfileid = this.getNewFileName(docfile);
+                    fileidmap.put(fileid, newfileid);
+                    File newfile = new File(docfile.getPath().replaceAll(fileid, newfileid));
+                    if (!newfile.exists()) {
+                        newfile.getParentFile().mkdirs();
+                        newfile.createNewFile();
+                    }
+                    try (FileWriter writer = new FileWriter(newfile);
+                            BufferedWriter out = new BufferedWriter(writer)) {
+                        int c;
+                        while ((c = zis.read()) != -1) {
+                            out.write(c);
+                        }
+                        out.flush();
+                    } catch (IOException e0) {
+                        throw new RuntimeException(e0);
+                    }
+                }
+                System.err.println(ze.getName());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("文件导入失败！");
+            alert.setContentText(e.getMessage());
+            alert.initOwner(stage);
+            alert.show();
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, e);
+            throw new RuntimeException(e);
+        }
+
+        // 数据录入数据库
+        for (DocSerializableVo dsvo1 : dsvolist) {
+            service.saveDoc(dsvo1, fileidmap);
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("数据导入成功！");
+        alert.initOwner(stage);
+        alert.show();
+    }
+
+    @FXML
+    public void export() throws Exception {
+        // 冻结所选状态
+        docTv.setEditable(false);
 
         // 准备数据
         ObservableList<DocTableVo> items = docTv.getItems();
         List<DocSerializableVo> dsvolist = new ArrayList<DocSerializableVo>();
+        int checknum = 0;
         for (DocTableVo vo : items) {
             if (vo.getCheckbox()) {
+                checknum++;
                 DocSerializableVo dsvo = new DocSerializableVo();
                 dsvo.setId(vo.getId());
                 dsvo.setOper(vo.getOper());
@@ -210,10 +332,47 @@ public class MainController implements FXMLController {
                 dsvo.setFilesize(vo.getFilesize());
                 dsvo.setOldname(vo.getOldname());
                 dsvo.setRelapath(vo.getRelapath());
+                dsvo.setDocDomainName(vo.getDocDomainName());
+                dsvo.setDocTypeName(vo.getDocTypeName());
                 dsvolist.add(dsvo);
             }
         }
 
+        // 判断是否有数据需要被导出
+        if (checknum == 0) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("请选择需要导出的数据！");
+            alert.initOwner(stage);
+            alert.show();
+            docTv.setEditable(true);
+            throw new RuntimeException();
+        }
+
+        // 选择保存文件
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Transport Files", "*.tra"));
+        File file = fileChooser.showSaveDialog(stage);
+        if (file == null) {
+            docTv.setEditable(true);
+            throw new RuntimeException();
+        }
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("文件创建失败！");
+                alert.setContentText(e.getMessage());
+                alert.initOwner(stage);
+                alert.show();
+                Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, e);
+                docTv.setEditable(true);
+                throw new RuntimeException();
+            }
+        }
+
+        // 保存数据和文件
         try (FileOutputStream fos = new FileOutputStream(file);
                 CheckedOutputStream csum = new CheckedOutputStream(fos, new Adler32());
                 ZipOutputStream zos = new ZipOutputStream(csum);
@@ -221,22 +380,25 @@ public class MainController implements FXMLController {
                 ObjectOutputStream oos = new ObjectOutputStream(out)) {
 
             zos.setComment("TableData");
-            zos.putNextEntry(new ZipEntry("TableData/A0"));
+            zos.putNextEntry(new ZipEntry("TableData\\A0"));
             oos.writeObject(dsvolist);
             oos.flush();
             zos.closeEntry();
-            
-            for (DocSerializableVo dsvof : dsvolist) {
-                BufferedReader in = new BufferedReader(new FileReader("D:\\escfile\\upload\\".concat(dsvof.getRelapath())));
-                zos.putNextEntry(new ZipEntry("FileData\\".concat(dsvof.getRelapath())));
-                int c;
-                while ((c = in.read()) != -1) {
-                    out.write(c);
-                }
-                out.flush();
-                zos.closeEntry();
-            }
 
+            for (DocSerializableVo dsvof : dsvolist) {
+                try (FileReader reader = new FileReader("D:\\escfile\\upload\\".concat(dsvof.getRelapath()));
+                        BufferedReader in = new BufferedReader(reader)) {
+                    zos.putNextEntry(new ZipEntry("FileData\\".concat(dsvof.getRelapath())));
+                    int c;
+                    while ((c = in.read()) != -1) {
+                        out.write(c);
+                    }
+                    out.flush();
+                    zos.closeEntry();
+                } catch (IOException e0) {
+                    throw new RuntimeException(e0);
+                }
+            }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("数据导出成功！");
             alert.initOwner(stage);
@@ -253,8 +415,10 @@ public class MainController implements FXMLController {
                 file.delete();
             }
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, e);
-            throw new RuntimeException();
+            docTv.setEditable(true);
+            throw new RuntimeException(e);
         }
+        docTv.setEditable(true);
     }
 
     @FXML
@@ -265,6 +429,36 @@ public class MainController implements FXMLController {
     @FXML
     public void about() {
         fxmlRouteController.showDialog("about");
+    }
+
+    private String getNewFileName(File file) {
+        String path = file.getPath();
+        String name = path.substring(path.lastIndexOf("\\") + 1);
+        String newname = null;
+        if (file.exists()) {
+            String tmname = name.substring(0, 10);
+            String rdname = name.substring(10, 12);
+            int rdint = Integer.parseInt(rdname) + 1;
+            String rdnewname = String.valueOf(rdint);
+            rdnewname = rdnewname.substring(rdnewname.length() - 2, rdnewname.length());
+            String newttname = tmname.concat(rdnewname);
+            String newttpath = path.replaceAll(name, newttname);
+            file = new File(newttpath);
+        } else {
+            newname = name;
+        }
+
+        if (newname == null) {
+            return getNewFileName(file);
+        } else {
+            return newname;
+        }
+    }
+
+    public static void main(String[] args) {
+        MainController m = new MainController();
+        File file = new File("D:\\kb\\201705\\149490308699\\149490308699");
+        System.out.println(m.getNewFileName(file));
     }
 
 }

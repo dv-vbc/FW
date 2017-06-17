@@ -10,5 +10,6 @@ package net.idealclover.java.fw.fx.esckit.core;
  * @author DragonFly
  */
 public interface DialogController {
+
     void setDialog(FXMLDialog dialog);
 }

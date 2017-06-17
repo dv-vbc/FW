@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author DragonFly
  */
-public class DocSerializableVo implements Serializable{
+public class DocSerializableVo implements Serializable {
 
     private Long id;
     private String oper;
@@ -33,8 +33,12 @@ public class DocSerializableVo implements Serializable{
     private Long filesize;
     private String oldname;
     private String relapath;
-    
-    
+
+    private String docDomainName;
+    private String docTypeName;
+
+    public DocSerializableVo() {
+    }
 
     public Long getId() {
         return id;
@@ -164,6 +168,20 @@ public class DocSerializableVo implements Serializable{
         this.relapath = relapath;
     }
 
-    
+    public String getDocDomainName() {
+        return docDomainName;
+    }
+
+    public void setDocDomainName(String docDomainName) {
+        this.docDomainName = docDomainName;
+    }
+
+    public String getDocTypeName() {
+        return docTypeName;
+    }
+
+    public void setDocTypeName(String docTypeName) {
+        this.docTypeName = docTypeName;
+    }
 
 }

@@ -135,5 +135,4 @@ public class SgccPFile implements Serializable {
         this.relapath = relapath;
     }
 
-   
 }

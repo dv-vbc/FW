@@ -9,12 +9,15 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import net.idealclover.java.fw.fx.esckit.core.Constant;
 import net.idealclover.java.fw.fx.esckit.dao.IPSysparaMapper;
 import net.idealclover.java.fw.fx.esckit.dao.ISgccKbDocMapper;
 import net.idealclover.java.fw.fx.esckit.po.PSyspara;
 import net.idealclover.java.fw.fx.esckit.po.SgccKbDoc;
+import net.idealclover.java.fw.fx.esckit.po.SgccPFile;
 import net.idealclover.java.fw.fx.esckit.service.ITransService;
+import net.idealclover.java.fw.fx.esckit.vo.DocSerializableVo;
 import net.idealclover.java.fw.fx.esckit.vo.DocTableVo;
 import net.idealclover.java.fw.fx.esckit.vo.DocVo;
 import net.idealclover.java.fw.fx.esckit.vo.SysparaVo;
@@ -31,7 +34,7 @@ public class TransServiceImpl implements ITransService {
 
     @Autowired
     private IPSysparaMapper psysparaMapper;
-    
+
     @Autowired
     private ISgccKbDocMapper sgccKbDocMapper;
 
@@ -55,7 +58,7 @@ public class TransServiceImpl implements ITransService {
     @Override
     public List<DocTableVo> listDoc4Tv(DocVo vo) throws Exception {
         List<SgccKbDoc> list = sgccKbDocMapper.list(vo.getBtime(), vo.getEtime());
-        
+
         List<DocTableVo> result = new ArrayList<DocTableVo>();
         for (SgccKbDoc po : list) {
             DocTableVo tvo = new DocTableVo();
@@ -79,9 +82,51 @@ public class TransServiceImpl implements ITransService {
             tvo.setOptime(Constant.dffull.format(po.getOptime()));
             result.add(tvo);
         }
-        
-        
+
         return result;
+    }
+    
+    @Override
+    public void saveDoc(DocSerializableVo dsvo, Map<String,String> fileidmap) throws Exception {
+        SgccPFile fpo = new SgccPFile();
+        String fileid = String.valueOf(dsvo.getFileId());
+        String newfileid = fileidmap.get(fileid);
+        String newrelapath = dsvo.getRelapath().replaceAll(fileid, newfileid);
+        fpo.setId(Long.parseLong(newfileid));
+        fpo.setFilename(newfileid);
+        fpo.setFiletype(dsvo.getFiletype());
+        fpo.setFilesize(dsvo.getFilesize());
+        fpo.setFilepath("D:\\escfile\\upload\\".concat(newrelapath));
+        fpo.setRelapath(newrelapath);
+        fpo.setUploadopr(dsvo.getOper());
+        fpo.setUploadtime(dsvo.getOptime());
+        fpo.setModifyopr(dsvo.getOpdept());
+        fpo.setModifytime(dsvo.getOptime());
+        fpo.setModifycount(0);
+        fpo.setStoretype("01");
+        fpo.setOldname(dsvo.getOldname());
+        sgccKbDocMapper.saveFile(fpo);
+        
+        SgccKbDoc po = new SgccKbDoc();
+        po.setId(Long.MIN_VALUE);
+        po.setOper(dsvo.getOper());
+        po.setOptime(dsvo.getOptime());
+        po.setOpdept(dsvo.getOpdept());
+        po.setDocDomain(dsvo.getDocDomain());
+        po.setDocType(dsvo.getDocType());
+        po.setDocLevel(1);
+        po.setDocState("1");
+        po.setKeyword(dsvo.getKeyword());
+        po.setTitle(dsvo.getTitle());
+        po.setSummary(dsvo.getSummary());
+        po.setAuthor(dsvo.getAuthor());
+        po.setUploadtime(dsvo.getOptime());
+        po.setPreviewCount(0);
+        po.setDownloadCount(0);
+        po.setFileId(fpo.getId());
+        po.setSn("0");
+        po.setSync(null);
+        sgccKbDocMapper.save(po);
     }
 
 }

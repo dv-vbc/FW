@@ -18,23 +18,22 @@ import org.springframework.stereotype.Service;
  * @author DragonFly
  */
 @Service("docService")
-public class DocServiceImpl implements IDocService{
-    
+public class DocServiceImpl implements IDocService {
+
     @Autowired
     private ISgccKbDocMapper sgccKbDocMapper;
 
     @Override
     public DocVo getDoc() throws Exception {
-        
+
         SgccKbDoc model = sgccKbDocMapper.getModel(1000000000000221L);
-        
+
         System.out.println("net.idealclover.java.fw.fx.esckit.service.impl.DocServiceImpl.getDoc()");
-        
+
         DocVo vo = new DocVo();
         BeanUtils.copyProperties(model, vo);
-                
-        
-       return vo;
+
+        return vo;
     }
-    
+
 }

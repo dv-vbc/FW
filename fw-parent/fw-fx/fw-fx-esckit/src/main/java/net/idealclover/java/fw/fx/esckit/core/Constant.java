@@ -13,5 +13,6 @@ import java.text.SimpleDateFormat;
  * @author DragonFly
  */
 public class Constant {
+
     public static final DateFormat dffull = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 }

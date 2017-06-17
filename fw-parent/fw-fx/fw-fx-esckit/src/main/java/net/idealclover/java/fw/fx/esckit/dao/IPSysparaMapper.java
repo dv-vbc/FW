@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("psysparaMapper")
 public interface IPSysparaMapper {
-    
+
     public PSyspara findByCode(String code);
-    
+
 }

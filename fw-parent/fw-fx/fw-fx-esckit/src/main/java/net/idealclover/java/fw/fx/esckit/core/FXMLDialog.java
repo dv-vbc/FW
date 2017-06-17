@@ -20,11 +20,11 @@ import javafx.stage.Window;
  * @author DragonFly
  */
 public class FXMLDialog extends Stage {
-    
-    public FXMLDialog(URL fxml, Window owner, DialogController ctrlr) throws IOException{
+
+    public FXMLDialog(URL fxml, Window owner, DialogController ctrlr) throws IOException {
         this(fxml, owner, ctrlr, StageStyle.DECORATED);
     }
-    
+
     public FXMLDialog(URL fxml, Window owner, DialogController ctrlr, StageStyle style) throws IOException {
         super(style);
         initOwner(owner);
