@@ -97,7 +97,7 @@
             <artifactId>druid</artifactId>   
         </dependency>
         <dependency>
-            <groupId>oracle</groupId>
+            <groupId>com.oracle</groupId>
             <artifactId>ojdbc7</artifactId>
         </dependency>
         <dependency>

@@ -65,7 +65,7 @@
         left join esc.sgcc_p_file f
         on d.file_id = f.id
         where 1 = 1
-        -- and d.sync = '1'
+        and d.sync = '1'
         and trunc(d.optime, 'dd') between to_date(#{arg0}, 'yyyy-mm-dd') and
         to_date(#{arg1}, 'yyyy-mm-dd')
         order by d.id
