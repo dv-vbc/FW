@@ -80,7 +80,9 @@
         <module>fw-dao</module>
         <module>fw-po</module>
         <module>fw-vo</module>
+        <!--
         <module>fw-fx</module>
+        -->
     </modules>
     <dependencyManagement>
         <dependencies>
