@@ -11,5 +11,6 @@
     <modules>
         <module>fw-svc-com</module>
         <module>fw-svc-sp</module>
+        <module>mavenproject1/fw-svc-eis</module>
     </modules>
 </project>

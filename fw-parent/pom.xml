@@ -83,6 +83,7 @@
         <!--
         <module>fw-fx</module>
         -->
+        <module>fw-ws</module>
     </modules>
     <dependencyManagement>
         <dependencies>

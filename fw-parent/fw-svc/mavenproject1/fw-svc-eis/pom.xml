@@ -3,14 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>net.idealclover.java</groupId>
-        <artifactId>fw-parent</artifactId>
+        <artifactId>fw-svc</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
-    <artifactId>fw-web</artifactId>
+    <artifactId>fw-svc-eis</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>fw-web-kb</module>
-        <module>fw-web-site</module>
-        <module>fw-web-sp</module>
+        <module>fw-svc-eis-tax</module>
     </modules>
 </project>

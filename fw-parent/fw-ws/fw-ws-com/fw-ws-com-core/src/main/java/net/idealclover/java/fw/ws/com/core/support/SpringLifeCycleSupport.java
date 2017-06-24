@@ -28,7 +28,7 @@ public class SpringLifeCycleSupport implements ServiceLifeCycle {
             ClassLoader classLoader = service.getClassLoader();
             ClassPathXmlApplicationContext appCtx = new ClassPathXmlApplicationContext(
                     new String[]{
-                        "applicationContext.xml"}, false);
+                        "classpath*:applicationContext.xml"}, false);
             appCtx.setClassLoader(classLoader);
             appCtx.refresh();
 
