@@ -4,13 +4,12 @@
     <parent>
         <groupId>net.idealclover.java</groupId>
         <artifactId>fw-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <artifactId>fw-ws</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>fw-ws-axis2</module>
         <module>fw-ws-com</module>
-        <module>fw-ws-eis</module>
     </modules>
 </project>

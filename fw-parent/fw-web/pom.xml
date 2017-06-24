@@ -4,13 +4,12 @@
     <parent>
         <groupId>net.idealclover.java</groupId>
         <artifactId>fw-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <artifactId>fw-web</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>fw-web-kb</module>
         <module>fw-web-site</module>
-        <module>fw-web-sp</module>
+        <module>fw-web-com</module>
     </modules>
 </project>

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.idealclover.java</groupId>
     <artifactId>fw-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
     <properties>
         <!-- base settings -->
@@ -75,14 +75,9 @@
     <modules>
         <module>fw-svc</module>
         <module>fw-web</module>
-        <module>fw-test</module>
-        <module>fw-sp</module>
         <module>fw-dao</module>
         <module>fw-po</module>
         <module>fw-vo</module>
-        <!--
-        <module>fw-fx</module>
-        -->
         <module>fw-ws</module>
     </modules>
     <dependencyManagement>
@@ -334,11 +329,6 @@
                 <version>${je.analysis.version}</version>
             </dependency>
             <!-- je-analysis end -->
-            <dependency>
-                <groupId>com.qq.weixin.mp</groupId>
-                <artifactId>aes-jre1.6</artifactId>
-                <version>1.0</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

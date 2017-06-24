@@ -4,7 +4,7 @@
     <parent>
         <artifactId>fw-ws</artifactId>
         <groupId>net.idealclover.java</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
     <groupId>net.idealclover.java</groupId>

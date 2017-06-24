@@ -4,13 +4,11 @@
     <parent>
         <groupId>net.idealclover.java</groupId>
         <artifactId>fw-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <artifactId>fw-svc</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>fw-svc-com</module>
-        <module>fw-svc-sp</module>
-        <module>mavenproject1/fw-svc-eis</module>
     </modules>
 </project>
