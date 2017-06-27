@@ -10,5 +10,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>fw-svc-com</module>
+        <module>fw-svc-sp</module>
     </modules>
 </project>

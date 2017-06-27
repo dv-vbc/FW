@@ -3,13 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>net.idealclover.java</groupId>
-        <artifactId>fw-parent</artifactId>
+        <artifactId>fw-vo</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>fw-dao</artifactId>
+    <artifactId>fw-vo-sp</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>fw-dao-com</module>
-        <module>fw-dao-sp</module>
+        <module>fw-vo-sp-wechat</module>
     </modules>
 </project>

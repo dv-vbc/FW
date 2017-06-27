@@ -10,5 +10,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>fw-vo-com</module>
+        <module>fw-vo-sp</module>
     </modules>
 </project>

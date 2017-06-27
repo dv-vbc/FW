@@ -11,5 +11,6 @@
     <modules>
         <module>fw-web-site</module>
         <module>fw-web-com</module>
+        <module>fw-web-demo</module>
     </modules>
 </project>
